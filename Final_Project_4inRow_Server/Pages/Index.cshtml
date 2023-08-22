@@ -1,0 +1,22 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">4 In A Row</h1>
+</div>
+<div><br /><br /></div>
+<div class="row justify-content-center mb-4">
+    <div class="col-2">
+        <a asp-page="./SignUp/Create" class="btn btn-primary" role="button">Sign Up</a>
+    </div>
+    <div class="col-2">
+        <a asp-page="./About/Index" class="btn btn-primary" role="button">About</a>
+    </div>
+    <div class="col-2">
+        <a asp-page="./GameData/Index" class="btn btn-primary" role="button">Game Data</a>
+    </div>
+</div>
+

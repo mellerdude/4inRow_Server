@@ -1,0 +1,55 @@
+﻿@page
+@model Final_Project_4inRow_Server.Pages.SignUp.CreateModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Credentials</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Credentials.Name" class="control-label"></label>
+                <input asp-for="Credentials.Name" class="form-control" />
+                <span asp-validation-for="Credentials.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Credentials.Password" class="control-label"></label>
+                <input asp-for="Credentials.Password" class="form-control" />
+                <span asp-validation-for="Credentials.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Credentials.Phone" class="control-label"></label>
+                <input asp-for="Credentials.Phone" class="form-control" />
+                <span asp-validation-for="Credentials.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group position-relative">
+                <label asp-for="Credentials.SelectedCountry" class="control-label"></label>
+                <div class="input-group">
+                    <select asp-for="Credentials.SelectedCountry" class="form-control" asp-items="Html.GetEnumSelectList<Models.Country>()"></select>
+                    <div class="select-arrow">
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                </div>
+                <span asp-validation-for="Credentials.SelectedCountry" class="text-danger"></span>
+            </div>
+
+            <div><br /></div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

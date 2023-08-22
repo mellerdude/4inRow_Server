@@ -1,0 +1,164 @@
+﻿@page
+@model Final_Project_4inRow_Server.Pages.GameData.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+<div class="col-2 mb-4">
+    <form action="" method="post">
+        @Html.DropDownListFor(m=>m.Name, new SelectList(Model.Names))
+        <br>
+        <button asp-page="" name="Name" class="btn btn-primary" autofocus>Submit Name</button>
+    </form>
+</div>
+
+<div class="row justify-content-center mb-4">
+    <div class="col-2">
+        <form method="post" asp-page-handler="OrderByNames">
+            <button type="submit" class="btn btn-primary" role="button">Order By Name</button>
+        </form>
+    </div>
+    <div class="col-2">
+        <form method="post" asp-page-handler="NameAndDate">
+            <button type="submit" class="btn btn-primary" role="button">Name and Date</button>
+        </form>
+    </div>
+    <div class="col-2">
+        <form method="post" asp-page-handler="ShowAllGames">
+            <button type="submit" class="btn btn-primary" role="button">Show All Games</button>
+        </form>
+    </div>
+    <div class="col-2">
+        <form method="post" asp-page-handler="ShowDistinct">
+            <button type="submit" class="btn btn-primary" role="button">Show Distinct</button>
+        </form>
+    </div>
+    <div class="col-2">
+        <form method="post" asp-page-handler="ShowPlayersByGames">
+            <button type="submit" class="btn btn-primary" role="button">Show Number of Games</button>
+        </form>
+    </div>
+    <div class="col-2">
+        <form method="post" asp-page-handler="ShowPlayersByCountry">
+            <button type="submit" class="btn btn-primary" role="button">Show Players By Country</button>
+        </form>
+    </div>
+
+
+</div>
+@if (Model.ShowCategorizedPlayersByCountry)
+{
+    @if (Model.CategorizedPlayersByCountry != null)
+    {
+        foreach (var category in Model.CategorizedPlayersByCountry)
+        {
+            <h2>@category.Label</h2>
+            <ul>
+                @foreach (var player in category.Players)
+                {
+                    <li>@player</li>
+                }
+            </ul>
+        }
+    }
+}
+else if (Model.ShowCategorizedNames)
+{
+    @if (Model.CategorizedNames != null)
+    {
+        foreach (var category in Model.CategorizedNames)
+        {
+            <h2>@category.Label</h2>
+            <ul>
+                @foreach (var name in category.Names)
+                {
+                    <li>@name</li>
+                }
+            </ul>
+        }
+    }
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                @if (Model.ShowNameAndDateColumns)
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.Scores[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Scores[0].date)
+                    </th>
+                }
+                else
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.Scores[0].Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Scores[0].date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Scores[0].Length)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Scores[0].Winner)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Scores[0].GameSequence)
+                    </th>
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Scores)
+            {
+                <tr>
+                    @if (Model.ShowNameAndDateColumns)
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.date)
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Length)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Winner)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GameSequence)
+                        </td>
+                        
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
